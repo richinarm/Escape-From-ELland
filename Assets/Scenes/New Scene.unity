@@ -317,7 +317,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665974130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.386, z: 0}
+  m_LocalPosition: {x: 0, y: 0.315, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -351,8 +351,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.42
-  m_Height: 1.9
+  m_Radius: 0.61
+  m_Height: 1.89
   m_Direction: 1
   m_Center: {x: 0, y: 0.88, z: 0}
 --- !u!114 &665974136
@@ -367,6 +367,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 032c99f7d701412468c9c652d56af43a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerbody: {fileID: 0}
+  animator: {fileID: 0}
+  playerSpeed: 5
 --- !u!1 &1014780660
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,6 +512,7 @@ GameObject:
   - component: {fileID: 1334420862}
   - component: {fileID: 1334420861}
   - component: {fileID: 1334420864}
+  - component: {fileID: 1334420865}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -615,6 +619,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &1334420865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334420860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 445c826cbc18fca47911112f4c120ded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 0}
 --- !u!1 &1857224844
 GameObject:
   m_ObjectHideFlags: 0
