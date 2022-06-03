@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody playerbody;
     public Animator animator;
+    public CameraFollow cameraFollow;
     int mouseSpeed = 100;
     public int playerSpeed = 5;
 
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerbody = GetComponent<Rigidbody>();
         animator = GameObject.Find("Player").transform.Find("Michelle").GetComponent<Animator>();
+        cameraFollow = FindObjectOfType<CameraFollow>();
     }
 
     // Update is called once per frame
@@ -33,11 +35,12 @@ public class PlayerMovement : MonoBehaviour
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
-        //var mouseLeftRight = Input.GetAxis("Mouse X") * mouseSpeed * Time.deltaTime;
-        //var mouseUpDown = Input.GetAxis("Mouse Y") * mouseSpeed * Time.deltaTime;
+        var mouseLeftRight = Input.GetAxis("Mouse X") * mouseSpeed * Time.deltaTime;
+        var mouseUpDown = Input.GetAxis("Mouse Y") * mouseSpeed * Time.deltaTime;
 
-        //yRotation += mouseLeftRight;
+        yRotation += mouseLeftRight;
 
+        //cameraFollow.transform.rotation = Quaternion.Euler(0, yRotation, 0);
         playerbody.transform.rotation = Quaternion.Euler(0, yRotation, 0);
         MovePlayer();
         PlayAnimation();
