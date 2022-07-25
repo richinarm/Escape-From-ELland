@@ -7,8 +7,9 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody playerbody;
     public Animator animator;
     public CameraFollow cameraFollow;
+    public ChangeCubeColor changeCubeColor;
     int mouseSpeed = 100;
-    public int playerSpeed = 5;
+    public int playerSpeed = 30;
 
     float horizontal;
     float vertical;
@@ -17,9 +18,11 @@ public class PlayerMovement : MonoBehaviour
     float yRotation;
 
     bool isMovingForward;
-    int forwardSpeed = 5;
+    int forwardSpeed = 20;
     int backwardSpeed = 3;
     bool isMovingBackward;
+    Quaternion newRotation;
+    float MoveX, MoveY, MoveZ;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
         playerbody = GetComponent<Rigidbody>();
         animator = GameObject.Find("Player").transform.Find("Michelle").GetComponent<Animator>();
         cameraFollow = FindObjectOfType<CameraFollow>();
+        changeCubeColor = FindObjectOfType<ChangeCubeColor>();
     }
 
     // Update is called once per frame
@@ -44,49 +48,193 @@ public class PlayerMovement : MonoBehaviour
         playerbody.transform.rotation = Quaternion.Euler(0, yRotation, 0);
         MovePlayer();
         PlayAnimation();
+
+        if(isMovingForward == false)
+            animator.SetBool("MoveForward", false);
+
+        if (isMovingForward == true)
+            animator.SetBool("MoveForward", true);
+
+
     }
 
     public void MovePlayer()
     {
-        if (isMovingForward)
-        {
-            playerSpeed = forwardSpeed;
-        }
-
-        else
-        {
-            playerSpeed = backwardSpeed;
-        }
-
-        transform.localPosition += (transform.right * horizontal + transform.forward * vertical) * playerSpeed * Time.deltaTime;
+        
 
     }
 
     public void PlayAnimation()
     {
+        MoveX = 0; 
+        MoveY = 0; 
+        MoveZ = 0;
         if (Input.GetKey(KeyCode.W))
         {
-            print("W is pressed");
-            animator.SetBool("MoveForward", true);
+            //playerbody.AddForce( 0, 0, playerSpeed) ;
+            MoveZ = +1;
+            playerbody.transform.rotation = Quaternion.Euler(0, 0, 0);
+            newRotation = playerbody.transform.rotation;
+
             isMovingForward = true;
         }
-
-        else if (Input.GetKeyUp(KeyCode.W))
+        else if(Input.GetKeyUp(KeyCode.W))
         {
-            animator.SetBool("MoveForward", false);
+            forwardSpeed = 20;
+            playerbody.transform.rotation = newRotation;
             isMovingForward = false;
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            print("W is pressed");
-            animator.SetBool("MoveBackward", true);
+            //playerbody.AddForce(0, 0, -playerSpeed);
+            MoveZ = -1;
+            playerbody.transform.rotation = Quaternion.Euler(0, 180, 0);
+            newRotation = playerbody.transform.rotation;
+            isMovingForward = true;
         }
 
         else if (Input.GetKeyUp(KeyCode.S))
         {
-            animator.SetBool("MoveBackward", false);
+            forwardSpeed = 20;
+            playerbody.transform.rotation = newRotation;
+            isMovingForward = false;
         }
+
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            //playerbody.AddForce(playerSpeed, 0, 0);
+            MoveX = +1;
+            playerbody.transform.rotation = Quaternion.Euler(0, 90, 0);
+            newRotation = playerbody.transform.rotation;
+            isMovingForward = true;
+        }
+
+        else if (Input.GetKeyUp(KeyCode.D))
+        {
+            forwardSpeed = 20;
+            playerbody.transform.rotation = newRotation;
+            isMovingForward = false;
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            //playerbody.AddForce(-playerSpeed, 0, 0);
+            MoveX = -1;
+            playerbody.transform.rotation = Quaternion.Euler(0, -90, 0);
+            newRotation = playerbody.transform.rotation;
+            isMovingForward = true;
+        }
+
+        else if (Input.GetKeyUp(KeyCode.A))
+        {
+            forwardSpeed = 20;
+            playerbody.transform.rotation = newRotation;
+            isMovingForward = false;
+        }
+
+
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
+        {
+            forwardSpeed = 10;
+            playerbody.transform.rotation = Quaternion.Euler(0, -110, 0);
+            newRotation = playerbody.transform.rotation;
+            isMovingForward = true;
+        }
+
+        else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
+        {
+            forwardSpeed = 20;
+            playerbody.transform.rotation = newRotation;
+            isMovingForward = false;
+        }
+
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+        {
+            forwardSpeed = 10;
+            playerbody.transform.rotation = Quaternion.Euler(0, 130, 0);
+            newRotation = playerbody.transform.rotation;
+            isMovingForward = true;
+        }
+
+        else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+        {
+            forwardSpeed = 20;
+            playerbody.transform.rotation = newRotation;
+            isMovingForward = false;
+        }
+
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
+        {
+            forwardSpeed = 10;
+            playerbody.transform.rotation = Quaternion.Euler(0, 30, 0);
+            newRotation = playerbody.transform.rotation;
+            isMovingForward = true;
+        }
+
+        else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
+        {
+            forwardSpeed = 20;
+            playerbody.transform.rotation = newRotation;
+            isMovingForward = false;
+        }
+
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
+        {
+            forwardSpeed = 20;
+            playerbody.transform.rotation = Quaternion.Euler(0, -30, 0);
+            newRotation = playerbody.transform.rotation;
+            isMovingForward = true;
+
+        }
+
+        else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
+        {
+            forwardSpeed = 20;
+            playerbody.transform.rotation = newRotation;
+            isMovingForward = false;
+        }
+
+        playerbody.transform.rotation = newRotation;
+
+        Vector3 moveDir = new Vector3(MoveX, MoveY, MoveZ).normalized;
+        transform.position += moveDir * playerSpeed * Time.deltaTime;
+
     }
 
+    public IEnumerator startColorchange()
+    {
+        changeCubeColor.successfailureText.text = "Great JOB!!!!!!!!!";
+        yield return new WaitForSeconds(1f);
+        changeCubeColor.successfailureText.text = "";
+
+        yield return new WaitForSeconds(1f);
+        changeCubeColor.setCubeColor();
+    }
+    public IEnumerator tryAgain()
+    {
+        changeCubeColor.successfailureText.text = "TRY AGAIN!!!!!!!";
+        yield return new WaitForSeconds(0.5f);
+        changeCubeColor.successfailureText.text = "";
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag!= "ground")
+        {
+            if (collision.gameObject.GetComponent<Renderer>().material.name.Contains(changeCubeColor.colorToFind))
+            {
+                print("You hit " + collision.gameObject.GetComponent<Renderer>().material.name);
+                StartCoroutine(startColorchange());
+            }
+
+            else
+            {
+                StartCoroutine(tryAgain());
+            }
+            
+        }
+    }
 }
